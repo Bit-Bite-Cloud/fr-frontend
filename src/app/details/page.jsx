@@ -16,7 +16,7 @@ const Details = () => {
         </div>
         <div className="inline-block align-middle">
           <h1 className="text-[50px]">Name</h1>
-          <div className="flex justify-between my-2">
+          <div className="flex justify-between m-2">
             <p className="mr-4">Longitude and Latitude</p>
             <p className="mr-4">Created At</p>
             <p className="mr-4">Created By</p>
