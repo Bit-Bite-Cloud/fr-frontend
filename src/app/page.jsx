@@ -4,6 +4,8 @@ import '/src/components/Table.jsx'
 import Table from '@components/Table'
 import '/src/components/Details.jsx'
 import Details from '@components/Details'
+import { Link } from 'next/link';
+
 
 const Home = () => {
     const tableData = [
@@ -20,9 +22,11 @@ const Home = () => {
           "Created At": "2023-05-21 10:15 AM",
           "Created By": "Admin",
           Details: (
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-[12px]">
-              View Details
-            </button>
+            <a href="/details">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-[12px]">
+                View Details
+              </button>
+            </a>
           ),
         },
         {
@@ -38,9 +42,11 @@ const Home = () => {
           "Created At": "2023-05-22 2:30 PM",
           "Created By": "User",
           Details: (
-            <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-[12px]">
-              View Details
-            </button>
+            <a href="/details">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-[12px]">
+                View Details
+              </button>
+            </a>
           ),
         },
         {
@@ -56,9 +62,11 @@ const Home = () => {
               "Created At": "2023-05-22 2:30 PM",
               "Created By": "User",
               Details: (
-                <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-[12px]">
-                  View Details
-                </button>
+                <a href="/details">
+              <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-[12px]">
+                View Details
+              </button>
+            </a>
               ),
             },
             {
@@ -74,9 +82,11 @@ const Home = () => {
                   "Created At": "2023-05-22 2:30 PM",
                   "Created By": "User",
                   Details: (
-                    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-[12px]">
-                      View Details
-                    </button>
+                    <a href="/details">
+                      <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-[12px]">
+                        View Details
+                      </button>
+                    </a>
                   ),
                 },
       ];

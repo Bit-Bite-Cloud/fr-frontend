@@ -6,8 +6,8 @@ import Image from "next/image";
 const Table = ({ data }) => {
   return (
     <div className="flex relative pl-8">
-      <table className="shadow-xl sm:rounded-lg mt-[1%] mb-[3%] divide-y w-[90%]">
-        <thead className="text-center uppercase">
+      <table className="shadow-xl sm:rounded-lg mt-[2%] mb-[3%] divide-y w-[90%] ">
+        <thead className="text-center uppercase bg-gray-200">
           <tr className="">
             <th className="p-10">Picture</th>
             <th className="p-10">Name</th>
@@ -19,7 +19,7 @@ const Table = ({ data }) => {
         </thead>
         <tbody className="text-center">
           {data.map((item, index) => (
-            <tr key={index} className="border-b -border-black">
+            <tr key={index} className="border-b-2">
               {Object.values(item).map((value, index) => (
                 <td key={index} className="p-10">{value}</td>
               ))}

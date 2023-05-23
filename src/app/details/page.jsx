@@ -3,9 +3,11 @@ import React from "react";
 const Details = () => {
   return (
     <div className=" my-10 mx-10">
+      <a href="/">
       <button className="bg-gray-300 hover:bg-gray-400  text-gray-800 font-bold py-2 px-4 rounded shadow mb-7">
         Back
       </button>
+      </a>
       <div className="bg-white rounded-lg shadow-xl flex items-center">
         <div className="w-1/2 my-[3%] flex justify-center">
           <img
