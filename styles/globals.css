@@ -25,3 +25,20 @@
     @apply shadow-xl 
   }
 }
+
+.details-button {
+  background-color: #556347;
+  color: wheat;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+.details-button:hover {
+  background-color: #606042;
+}
+
+.page-link {
+
+}
