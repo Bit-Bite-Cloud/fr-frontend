@@ -33,12 +33,45 @@
   padding: 8px 16px;
   border-radius: 4px;
   font-size: 12px;
+  width: max-content;
 }
 
 .details-button:hover {
   background-color: #606042;
 }
 
-.page-link {
+.pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+  margin-left: 2rem;
+}
 
+.page-item:last-child .page-link {
+  border-top-right-radius: 0.25rem;
+  border-bottom-right-radius: 0.25rem;
+}
+
+.page-link {
+  position: relative;
+  display: block;
+  padding: 0.5rem 0.75rem;
+  margin-left: -1px;
+  line-height: 2;
+  color: #007bff;
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.page-link:hover {
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #dee2e6;
+}
+
+.page-item.active .page-link {
+  background-color: #007bff;
+  color: #fff;
+  border: 1px solid #dee2e6;
 }

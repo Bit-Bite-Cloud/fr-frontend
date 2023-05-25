@@ -1,171 +1,100 @@
+"use client";
 
-// import React from 'react'
-// import '/src/components/Table.jsx'
-// import Table from '@components/Table'
-// import '/src/components/Details.jsx'
-// import Details from '@components/Details'
-// import { Link } from 'next/link';
-
-
-// const Home = () => {
-//     const tableData = [
-//         {
-//           Picture: (
-//             <img
-//               src="https://images.squarespace-cdn.com/content/v1/5a5d10ae2aeba5215249a42b/1575268967567-OLC19H15NW65GMK6WQ9A/Maplepaw.jpg"
-//               alt="Picture 1"
-//               className="object-cover h-24 w-24"
-//             />
-//           ),
-//           "Name": "John Doe",
-//           "Longitude and Latitude": "40.7128° N, -74.0060° W",
-//           "Created At": "2023-05-21 10:15 AM",
-//           "Created By": "Admin",
-//           Details: (
-//             <a href="/details">
-//               <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-[12px]">
-//                 View Details
-//               </button>
-//             </a>
-//           ),
-//         },
-//         {
-//         Picture: (
-//             <img
-//               src="https://example.com/image.jpg"
-//               alt="Picture 2"
-//               className="object-cover h-24 w-24"
-//             />
-//           ),
-//           Name: "Jane Smith",
-//           "Longitude and Latitude": "37.7749° N, -122.4194° W",
-//           "Created At": "2023-05-22 2:30 PM",
-//           "Created By": "User",
-//           Details: (
-//             <a href="/details">
-//               <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-[12px]">
-//                 View Details
-//               </button>
-//             </a>
-//           ),
-//         },
-//         {
-//             Picture: (
-//                 <img
-//                   src="https://example.com/image.jpg"
-//                   alt="Picture 2"
-//                   className="object-cover h-24 w-24"
-//                 />
-//               ),
-//               Name: "Jane Smith",
-//               "Longitude and Latitude": "37.7749° N, -122.4194° W",
-//               "Created At": "2023-05-22 2:30 PM",
-//               "Created By": "User",
-//               Details: (
-//                 <a href="/details">
-//               <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-[12px]">
-//                 View Details
-//               </button>
-//             </a>
-//               ),
-//             },
-//             {
-//                 Picture: (
-//                     <img
-//                       src="https://example.com/image.jpg"
-//                       alt="Picture 2"
-//                       className="object-cover h-24 w-24"
-//                     />
-//                   ),
-//                   Name: "Jane Smith",
-//                   "Longitude and Latitude": "37.7749° N, -122.4194° W",
-//                   "Created At": "2023-05-22 2:30 PM",
-//                   "Created By": "User",
-//                   Details: (
-//                     <a href="/details">
-//                       <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded text-[12px]">
-//                         View Details
-//                       </button>
-//                     </a>
-//                   ),
-//                 },
-//       ];
-//   return (
-//     <div>
-//       <Table data={tableData} />
-//     </div>
-    
-  
-//   )
-// }
-
-// export default Home
-
-'use client'
-
-import React, { useState, useEffect } from 'react';
-import Table from '../components/Table';
-import Pagination from '../components/pagination';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import Data from "../app/data.json";
 
 const Home = () => {
-
-      const tableData = [
-        {
-          Picture: (
-            <img
-              src="https://images.squarespace-cdn.com/content/v1/5a5d10ae2aeba5215249a42b/1575268967567-OLC19H15NW65GMK6WQ9A/Maplepaw.jpg"
-              alt="Picture 1"
-              className="object-cover h-24 w-24"
-            />
-          ),
-          Details: (
-            <a href="/details">
-              <button className="details-button">
-                View Details
-              </button>
-            </a>
-          ),
-          "Name": "John Doe",
-          "Longitude and Latitude": "40.7128° N, -74.0060° W",
-          "Created At": "2023-05-21 10:15 AM",
-          "Created By": "Admin"
-        },
-        
-      ];
-
-  const [data, setPosts] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
+  const recordsPerPage = 5;
+  const lastIndex = currentPage * recordsPerPage;
+  const firstIndex = lastIndex - recordsPerPage;
+  const records = Data.slice(firstIndex, lastIndex);
+  const npage = Math.ceil(Data.length / recordsPerPage);
+  const numbers = [...Array(npage + 1).keys()].slice(1);
 
-  useEffect(() => {
-    const fetchPosts = async () => {
-      setLoading(true);
-      const res = await axios.get('https://jsonplaceholder.typicode.com/posts');
-      setPosts(res.data);
-      setLoading(false);
-    };
+  function prePage() {
+    if(currentPage !== 1) {
+      setCurrentPage(currentPage - 1)
+    }
+  }
 
-    fetchPosts();
-  }, []);
+  function changeCPage(id) {
+    setCurrentPage(id)
+  }
 
-  // Get current posts
-  const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
-
-  // Change page
-  const paginate = pageNumber => setCurrentPage(pageNumber);
+  function nextPage() {
+    if(currentPage !== npage) {
+      setCurrentPage(currentPage + 1)
+    }
+  }
 
   return (
-    <div className='container mt-5'>
-      <Table data={tableData} loading={loading} />
-      <Pagination
-        postsPerPage={postsPerPage}
-        totalPosts={data.length}
-        paginate={paginate}
-      />
+    <div className="container mt-5">
+      <div className="flex relative pl-8 overflow-scroll w-[110%]">
+        <table className="shadow-xl mt-[2%] mb-[3%] divide-y">
+          <thead className="text-center uppercase bg-gray-200">
+            <tr className="">
+              <th className="p-7 sticky">Picture</th>
+              <th className="p-7 sticky">Details</th>
+              <th className="p-7 w-max">Name</th>
+              <th className="p-7">Latitude</th>
+              <th className="p-7">Longitude</th>
+              <th className="p-7">Created At</th>
+              <th className="p-7">Created By</th>
+              <th className="p-7">Age</th>
+              <th className="p-7">Gender</th>
+              <th className="p-7">Phone</th>
+              <th className="p-7">Address</th>
+            </tr>
+          </thead>
+          <tbody className="text-center">
+            {records.map((item, index) => (
+              <tr key={index} className="border-b-2">
+                {Object.entries(item).map(([key, value]) => {
+                  if (key === "details") { 
+                    return (
+                      <td key={key} className="p-10">
+                        <a href="/details">
+                          <button className="details-button">
+                            {value} 
+                          </button>
+                        </a>
+                      </td>
+                    );
+                  } else {
+                    return (
+                      <td key={key} className="p-10">
+                        {value}
+                      </td>
+                    );
+                  }
+                })}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      
+      <nav>
+        <ul className="pagination my-4">
+          <li className="page-item">
+            <a href="#" className="page-link"
+            onClick={prePage}>Previous</a>
+          </li>
+          {
+            numbers.map((n, index) => (
+              <li className={`page-item ${currentPage == n ? 'active' : ''}`} key={index}>
+                <a href="#" className="page-link"
+                onClick={() => changeCPage(n)}> {n} </a>
+              </li>
+            ))
+          }
+          <li className="page-item">
+            <a href="#" className="page-link"
+            onClick={nextPage}>Next</a>
+          </li>
+        </ul>
+      </nav>
     </div>
   );
 };
