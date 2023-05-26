@@ -56,7 +56,7 @@ const Home = () => {
             <tr className="">
               <th className="col p-7 sticky">Picture</th>
               <th className="col p-7 sticky">Details</th>
-              <th className="col p-7 w-max">Name</th>
+              <th className="col p-7">Name</th>
               <th className="col p-7">Latitude</th>
               <th className="col p-7">Longitude</th>
               <th className="col p-7">Created At</th>
@@ -73,7 +73,7 @@ const Home = () => {
                 {Object.entries(item).map(([key, value]) => {
                   if (key === "details") {
                     return (
-                      <td key={key} className="p-10">
+                      <td key={key} className="p-5 border-2">
                         <a href="/details">
                           <button className="details-button">{value}</button>
                         </a>
@@ -81,7 +81,7 @@ const Home = () => {
                     );
                   } else {
                     return (
-                      <td key={key} className="p-10">
+                      <td key={key} className="p-5 border-2">
                         {value}
                       </td>
                     );

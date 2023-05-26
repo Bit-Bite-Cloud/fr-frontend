@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Data from "src/app/admin/fetchAdmin.jsx";
 
 const Home = () => {
+
   const queryParams = new URLSearchParams(window.location.search);
   const initialPage = parseInt(queryParams.get("page")) || 1;
 
@@ -17,20 +18,33 @@ const Home = () => {
   const npage = Math.ceil(data.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
+  useEffect(() => {
+    setRecords(data.slice(firstIndex, lastIndex));
+  }, [currentPage]);
+
   function prePage() {
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
+      updateURL(currentPage - 1);
     }
   }
 
   function changeCPage(id) {
     setCurrentPage(id);
+    updateURL(id);
   }
 
   function nextPage() {
     if (currentPage !== npage) {
       setCurrentPage(currentPage + 1);
+      updateURL(currentPage + 1);
     }
+  }
+
+  function updateURL(page) {
+    queryParams.set("page", page);
+    const newURL = `${window.location.pathname}?${queryParams.toString()}`;
+    window.history.replaceState(null, null, newURL);
   }
 
   return (
@@ -38,8 +52,8 @@ const Home = () => {
       <p className="px-8 pt-5 pb-3 font-semibold text-[#556347] text-[24px]">
         Admin Dashboard
       </p>
-      <div className="flex relative pl-8 overflow-scroll w-[110%]">
-        <table className="shadow-xl mt-[2%] divide-y">
+      <div className="flex relative pl-8 overflow-scroll ">
+        <table className="shadow-xl mt-[2%] divide-y w-full">
           <thead className="text-center uppercase bg-gray-200">
             <tr className="">
               <th className="col p-7">Created At</th>
@@ -54,9 +68,9 @@ const Home = () => {
                 {Object.entries(item).map(([key, value]) => {
                   if (key === "status") {
                     return (
-                      <td key={key} className="p-10">
-                        <div className="absolute">
-                          <div className="relative inline-block w-10 mr-2 select-none transition duration-200 ease-in">
+                      <td key={key} className="p-10 border-2">
+                        <div className="">
+                          <div className="relative inline-block w-10 select-none transition duration-200 ease-in">
                             <input
                               type="checkbox"
                               name={`toggle-${index}`}
@@ -80,7 +94,7 @@ const Home = () => {
                     );
                   } else {
                     return (
-                      <td key={key} className="p-10">
+                      <td key={key} className="p-10 border-2">
                         {value}
                       </td>
                     );
@@ -101,12 +115,15 @@ const Home = () => {
           </li>
           {numbers.map((n, index) => (
             <li
-              className={`page-item ${currentPage == n ? "active" : ""}`}
+              className={`page-item ${currentPage === n ? "active" : ""}`}
               key={index}
             >
-              <a href="#" className="page-link" onClick={() => changeCPage(n)}>
-                {" "}
-                {n}{" "}
+              <a
+                to={`?page=${n}`}
+                className="page-link"
+                onClick={() => changeCPage(n)}
+              >
+                {n}
               </a>
             </li>
           ))}
