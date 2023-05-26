@@ -26,6 +26,35 @@
   }
 }
 
+.loading-page {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.welcome-text {
+  font-size: 24px;
+  font-weight: bold;
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.animate {
+  animation: fadeIn 1s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 .details-button {
   background-color: #556347;
   color: wheat;
@@ -59,19 +88,29 @@
   padding: 0.5rem 0.75rem;
   margin-left: -1px;
   line-height: 2;
-  color: #007bff;
+  color: black;
   background-color: #fff;
   border: 1px solid #dee2e6;
 }
 
 .page-link:hover {
-  background-color: #007bff;
+  background-color: #556347;
   color: #fff;
   border: 1px solid #dee2e6;
 }
 
 .page-item.active .page-link {
-  background-color: #007bff;
+  background-color: #556347;
   color: #fff;
   border: 1px solid #dee2e6;
+}
+
+.toggle-checkbox:checked {
+  @apply: right-0 border-amber-400;
+  right: 0;
+  border-color: #556347;
+}
+.toggle-checkbox:checked + .toggle-label {
+  @apply: bg-amber-400;
+  background-color: #556347;
 }

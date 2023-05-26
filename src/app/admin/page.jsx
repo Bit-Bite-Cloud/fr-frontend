@@ -1,13 +1,10 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Data from "../app/data.json";
+import Data from "./data.json";
 
 const Home = () => {
-  const queryParams = new URLSearchParams(window.location.search);
-  const initialPage = parseInt(queryParams.get("page")) || 1;
-
-  const [currentPage, setCurrentPage] = useState(initialPage);
+  const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 5;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
@@ -15,9 +12,7 @@ const Home = () => {
   const npage = Math.ceil(Data.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
-  useEffect(() => {
-    setCurrentPage(initialPage);
-  }, [initialPage]);
+const [recordsToggle, setRecords] = useState(Data.slice(firstIndex, lastIndex));
 
   function prePage() {
     if (currentPage !== 1) {
@@ -32,47 +27,52 @@ const Home = () => {
   function nextPage() {
     if (currentPage !== npage) {
       setCurrentPage(currentPage + 1);
-      updateURL(currentPage + 1);
     }
-  }
-
-  function updateURL(page) {
-    queryParams.set("page", page);
-    history.push({
-      pathname: location.pathname,
-      search: queryParams.toString(),
-    });
   }
 
   return (
     <div className="container mt-5">
+      <p className="px-8 pt-5 pb-3 font-semibold text-[#556347] text-[24px]">
+        Admin Dashboard
+      </p>
       <div className="flex relative pl-8 overflow-scroll w-[110%]">
         <table className="shadow-xl mt-[2%] divide-y">
           <thead className="text-center uppercase bg-gray-200">
             <tr className="">
-              <th className="col p-7 sticky">Picture</th>
-              <th className="col p-7 sticky">Details</th>
-              <th className="col p-7 w-max">Name</th>
-              <th className="col p-7">Latitude</th>
-              <th className="col p-7">Longitude</th>
               <th className="col p-7">Created At</th>
-              <th className="col p-7">Created By</th>
-              <th className="col p-7">Age</th>
-              <th className="col p-7">Gender</th>
-              <th className="col p-7">Phone</th>
-              <th className="col p-7">Address</th>
+              <th className="col p-7">Access Token</th>
+              <th className="col p-7">Status</th>
             </tr>
           </thead>
+
           <tbody className="text-center">
             {records.map((item, index) => (
               <tr key={index} className="border-b-2">
                 {Object.entries(item).map(([key, value]) => {
-                  if (key === "details") {
+                  if (key === "status") {
                     return (
                       <td key={key} className="p-10">
-                        <a href="/details">
-                          <button className="details-button">{value}</button>
-                        </a>
+                        <div className="absolute">
+                          <div className="relative inline-block w-10 mr-2 select-none transition duration-200 ease-in">
+                            <input
+                              type="checkbox"
+                              name={`toggle-${index}`}
+                              id={`toggle-${index}`}
+                              className="toggle-checkbox absolute block w-6 h-6 rounded-full bg-white border-4 appearance-none cursor-pointer"
+                              checked={value === "on"}
+                              onChange={() => {
+                                const updatedRecords = [...records];
+                                updatedRecords[index][key] =
+                                  value === "on" ? "off" : "on";
+                                setRecords(updatedRecords);
+                              }}
+                            />
+                            <label
+                              htmlFor={`toggle-${index}`}
+                              className="toggle-label block overflow-hidden h-6 rounded-full bg-gray-300 cursor-pointer"
+                            ></label>
+                          </div>
+                        </div>
                       </td>
                     );
                   } else {
@@ -98,15 +98,12 @@ const Home = () => {
           </li>
           {numbers.map((n, index) => (
             <li
-              className={`page-item ${currentPage === n ? "active" : ""}`}
+              className={`page-item ${currentPage == n ? "active" : ""}`}
               key={index}
             >
-              <a
-                to={`?page=${n}`}
-                className="page-link"
-                onClick={() => changeCPage(n)}
-              >
-                {n}
+              <a href="#" className="page-link" onClick={() => changeCPage(n)}>
+                {" "}
+                {n}{" "}
               </a>
             </li>
           ))}
