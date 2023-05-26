@@ -1,18 +1,21 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Data from "./data.json";
+import Data from "src/app/admin/fetchAdmin.jsx";
 
 const Home = () => {
+  const queryParams = new URLSearchParams(window.location.search);
+  const initialPage = parseInt(queryParams.get("page")) || 1;
+
+  const data = Data();
+
+  const [records, setRecords] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 5;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = Data.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(Data.length / recordsPerPage);
+  const npage = Math.ceil(data.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
-
-const [recordsToggle, setRecords] = useState(Data.slice(firstIndex, lastIndex));
 
   function prePage() {
     if (currentPage !== 1) {
