@@ -1,23 +1,27 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import Data from "../app/data.json";
+import MyComponent from "../app/data.jsx";
+import axios from "axios";
 
 const Home = () => {
+  
   const queryParams = new URLSearchParams(window.location.search);
   const initialPage = parseInt(queryParams.get("page")) || 1;
 
-  const [currentPage, setCurrentPage] = useState(initialPage);
+  const data = MyComponent();
+
+  const [records, setRecords] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
   const recordsPerPage = 5;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
-  const records = Data.slice(firstIndex, lastIndex);
-  const npage = Math.ceil(Data.length / recordsPerPage);
+  const npage = Math.ceil(data.length / recordsPerPage);
   const numbers = [...Array(npage + 1).keys()].slice(1);
 
   useEffect(() => {
-    setCurrentPage(initialPage);
-  }, [initialPage]);
+    setRecords(data.slice(firstIndex, lastIndex));
+  }, [currentPage]);
 
   function prePage() {
     if (currentPage !== 1) {
