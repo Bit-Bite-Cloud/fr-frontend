@@ -22,11 +22,13 @@ const Home = () => {
   function prePage() {
     if (currentPage !== 1) {
       setCurrentPage(currentPage - 1);
+      updateURL(currentPage - 1);
     }
   }
 
   function changeCPage(id) {
     setCurrentPage(id);
+    updateURL(id);
   }
 
   function nextPage() {
@@ -38,10 +40,8 @@ const Home = () => {
 
   function updateURL(page) {
     queryParams.set("page", page);
-    history.push({
-      pathname: location.pathname,
-      search: queryParams.toString(),
-    });
+    const newURL = `${window.location.pathname}?${queryParams.toString()}`;
+    window.history.replaceState(null, null, newURL);
   }
 
   return (
