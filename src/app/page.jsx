@@ -52,19 +52,19 @@ const Home = () => {
     <div className="container mt-5">
       <div className="flex relative pl-8 overflow-scroll w-[110%]">
         <table className="shadow-xl mt-[2%] divide-y">
-          <thead className="text-center uppercase bg-gray-200">
+          <thead className="text-center uppercase bg-gray-300">
             <tr className="">
-              <th className="col p-7 sticky">Picture</th>
-              <th className="col p-7 sticky">Details</th>
-              <th className="col p-7">Name</th>
-              <th className="col p-7">Latitude</th>
-              <th className="col p-7">Longitude</th>
-              <th className="col p-7">Created At</th>
-              <th className="col p-7">Created By</th>
-              <th className="col p-7">Age</th>
-              <th className="col p-7">Gender</th>
-              <th className="col p-7">Phone</th>
-              <th className="col p-7">Address</th>
+              <th className="col p-7 sticky border-2">Picture</th>
+              <th className="col p-7 sticky border-2">Details</th>
+              <th className="col p-7 border-2">Name</th>
+              <th className="col p-7 border-2">Latitude</th>
+              <th className="col p-7 border-2">Longitude</th>
+              <th className="col border-2">Created At</th>
+              <th className="col border-2">Created By</th>
+              <th className="col p-7 border-2">Age</th>
+              <th className="col p-7 border-2">Gender</th>
+              <th className="col p-7 border-2">Phone</th>
+              <th className="col p-7 border-2">Address</th>
             </tr>
           </thead>
           <tbody className="text-center">

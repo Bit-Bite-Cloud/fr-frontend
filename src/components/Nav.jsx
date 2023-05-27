@@ -46,7 +46,7 @@ const Nav = () => {
           height={30}
           className="object-contain"
         />
-        <p>Person Name</p>
+        <p>User</p>
       </div>
     </nav>
   );
