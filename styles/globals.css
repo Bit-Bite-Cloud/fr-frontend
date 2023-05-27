@@ -26,35 +26,6 @@
   }
 }
 
-.loading-page {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100vh;
-}
-
-.welcome-text {
-  font-size: 24px;
-  font-weight: bold;
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-
-.animate {
-  animation: fadeIn 1s ease-in-out forwards;
-}
-
-@keyframes fadeIn {
-  0% {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 .details-button {
   background-color: #556347;
   color: wheat;

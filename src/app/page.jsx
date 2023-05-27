@@ -1,8 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import MyComponent from "../app/data.jsx";
-import axios from "axios";
+import MyComponent from "./data.jsx";
 
 const Home = () => {
   
@@ -126,3 +125,4 @@ const Home = () => {
 };
 
 export default Home;
+
